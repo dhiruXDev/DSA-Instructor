@@ -1,5 +1,5 @@
 // Default Configuration
-const DEFAULT_API_KEY = "";
+const DEFAULT_API_KEY = "AQ.Ab8RN6IG_1YmPjHQVlpax6sXn3A0P2ZWU8o_p9yYFTSRNIJopg";
 const DEFAULT_MODEL = "gemini-2.5-flash";
 const DEFAULT_TEMPERAMENT = "rude";
 const DEFAULT_TEMPERATURE = 0.4;
