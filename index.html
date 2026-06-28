@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoMaster.ai | Interactive DSA Instructor</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prism.js (Syntax Highlighting) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <!-- App Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fa-brands fa-bots"></i>
+                    </div>
+                    <span class="logo-text">AlgoMaster<span class="accent-dot">.ai</span></span>
+                </div>
+                <button class="mobile-close-btn" id="mobile-sidebar-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-section-title">DSA Learning Modules</div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-topic="general">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>General Instructor</span>
+                </button>
+                <button class="nav-item" data-topic="arrays">
+                    <i class="fa-solid fa-list-numeric"></i>
+                    <span>Arrays & Strings</span>
+                </button>
+                <button class="nav-item" data-topic="linkedlists">
+                    <i class="fa-solid fa-link"></i>
+                    <span>Linked Lists</span>
+                </button>
+                <button class="nav-item" data-topic="stacksqueues">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Stacks & Queues</span>
+                </button>
+                <button class="nav-item" data-topic="trees">
+                    <i class="fa-solid fa-tree"></i>
+                    <span>Trees & BSTs</span>
+                </button>
+                <button class="nav-item" data-topic="graphs">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <span>Graphs & DFS/BFS</span>
+                </button>
+                <button class="nav-item" data-topic="dp">
+                    <i class="fa-solid fa-cubes"></i>
+                    <span>Dynamic Programming</span>
+                </button>
+                <button class="nav-item" data-topic="sorting">
+                    <i class="fa-solid fa-arrow-down-sort-numeric"></i>
+                    <span>Sorting & Searching</span>
+                </button>
+            </nav>
+            
+            <div class="sidebar-section-title">Quick Tasks</div>
+            <div class="sidebar-actions-panel">
+                <button class="action-tile" id="btn-clear-chat">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Clear Chat</span>
+                </button>
+                <button class="action-tile" id="btn-open-settings-side">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Settings</span>
+                </button>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="connection-status">
+                    <span class="status-indicator online"></span>
+                    <span class="status-text">Gemini 1.5 Flash</span>
+                </div>
+                <div class="system-key-badge" id="key-badge">Default Key Active</div>
+            </div>
+        </aside>
+        
+        <!-- MAIN CHAT CONTAINER -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="instructor-profile">
+                        <div class="instructor-avatar">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div class="instructor-info">
+                            <h2>Prof. Algos <i class="fa-solid fa-circle-check verification-icon"></i></h2>
+                            <span class="instructor-subtitle">Expert DSA Code Coach</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="header-btn" id="btn-toggle-cheatsheet" title="DSA Complexity Sheet">
+                        <i class="fa-solid fa-table-list"></i>
+                        <span class="btn-label">Cheat Sheet</span>
+                    </button>
+                    <button class="header-btn" id="btn-toggle-settings" title="API Configuration">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Chat Scroll Area -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- Welcome Screen / Splash Screen -->
+                <div class="welcome-splash" id="welcome-splash">
+                    <div class="welcome-icon-wrapper">
+                        <i class="fa-solid fa-terminal splash-icon"></i>
+                    </div>
+                    <h1>Become a DSA Master</h1>
+                    <p class="welcome-desc">
+                        I am your expert DSA Coach. I code, analyze complexity, optimize solutions, and strictly decline any irrelevant general questions. Try asking me a data structure or algorithm question!
+                    </p>
+                    
+                    <div class="warning-banner">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span><strong>Warning:</strong> Ask only coding questions! If you ask me about cooking, life, or history, expect a rude reality check.</span>
+                    </div>
+                    
+                    <div class="prompt-grid">
+                        <div class="prompt-card" data-prompt="Explain the difference between arrays and linked lists in detail, along with memory allocation.">
+                            <i class="fa-solid fa-shapes card-icon"></i>
+                            <h3>Arrays vs Lists</h3>
+                            <p>"How are they laid out in memory?"</p>
+                        </div>
+                        <div class="prompt-card" data-prompt="Write a program to reverse a singly linked list in C++ and Python. Explain the step-by-step logic.">
+                            <i class="fa-solid fa-code card-icon"></i>
+                            <h3>Reverse Linked List</h3>
+                            <p>"Provide iterative and recursive code."</p>
+                        </div>
+                        <div class="prompt-card" data-prompt="Explain Dynamic Programming and solve the Longest Common Subsequence (LCS) problem.">
+                            <i class="fa-solid fa-network-wired card-icon"></i>
+                            <h3>Dynamic Programming</h3>
+                            <p>"Explain memoization and tabulation."</p>
+                        </div>
+                        <div class="prompt-card" data-prompt="What is the time complexity of Quick Sort? In what cases does it degrade to O(N^2) and how do we prevent it?">
+                            <i class="fa-solid fa-arrow-down-a-z card-icon"></i>
+                            <h3>Quick Sort Worst-Case</h3>
+                            <p>"Explain pivot selection strategies."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Typing Indicator -->
+            <div class="typing-indicator-container hidden" id="typing-indicator">
+                <div class="avatar-small">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div class="typing-bubble">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <span class="typing-label">Prof. Algos is analyzing...</span>
+            </div>
+            
+            <!-- Chat Input Panel -->
+            <footer class="chat-input-container">
+                <form id="chat-form" class="chat-form">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="user-input" 
+                            placeholder="Ask a DSA or coding question... (e.g. Write a binary search in Java)" 
+                            rows="1" 
+                            required
+                        ></textarea>
+                        <button type="button" class="input-action-btn" id="btn-insert-template" title="Insert Code Template">
+                            <i class="fa-solid fa-code"></i>
+                        </button>
+                    </div>
+                    <button type="submit" class="send-btn" id="btn-send" title="Send Message">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div class="input-footer-note">
+                    Press <kbd>Enter</kbd> to send, <kbd>Shift + Enter</kbd> for new line. Focused on DSA and Coding questions only.
+                </div>
+            </footer>
+        </main>
+        
+        <!-- SIDE DRAWER 1: COMPLEXITY CHEAT SHEET -->
+        <aside class="drawer" id="cheatsheet-drawer">
+            <div class="drawer-header">
+                <h3><i class="fa-solid fa-table-list"></i> DSA Complexity Cheat Sheet</h3>
+                <button class="drawer-close" id="btn-close-cheatsheet">&times;</button>
+            </div>
+            <div class="drawer-body">
+                <section class="cheatsheet-section">
+                    <h4>Data Structure Operations</h4>
+                    <div class="table-scroll">
+                        <table class="complexity-table">
+                            <thead>
+                                <tr>
+                                    <th>Data Structure</th>
+                                    <th>Access</th>
+                                    <th>Search</th>
+                                    <th>Insertion</th>
+                                    <th>Deletion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Array</td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Stack</td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Queue</td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Singly-Linked List</td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Binary Search Tree (Avg)</td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AVL Tree (Worst)</td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section">
+                    <h4>Common Sorting Algorithms</h4>
+                    <div class="table-scroll">
+                        <table class="complexity-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>Best</th>
+                                    <th>Average</th>
+                                    <th>Worst</th>
+                                    <th>Space</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Quicksort</td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-on2">O(N<sup>2</sup>)</span></td>
+                                    <td><span class="badge complexity-ologn">O(log N)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mergesort</td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Heapsort</td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-ologn">O(N log N)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Bubble Sort</td>
+                                    <td><span class="badge complexity-on">O(N)</span></td>
+                                    <td><span class="badge complexity-on2">O(N<sup>2</sup>)</span></td>
+                                    <td><span class="badge complexity-on2">O(N<sup>2</sup>)</span></td>
+                                    <td><span class="badge complexity-o1">O(1)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <section class="cheatsheet-section">
+                    <h4>Big-O Hierarchy Guide</h4>
+                    <div class="bigo-chart">
+                        <div class="bigo-chart-bar complexity-o1"><strong>O(1)</strong> Constant - Excellent</div>
+                        <div class="bigo-chart-bar complexity-ologn"><strong>O(log N)</strong> Logarithmic - Very Good</div>
+                        <div class="bigo-chart-bar complexity-on"><strong>O(N)</strong> Linear - Fair</div>
+                        <div class="bigo-chart-bar complexity-ologn"><strong>O(N log N)</strong> Pseudo-Linear - Acceptable</div>
+                        <div class="bigo-chart-bar complexity-on2"><strong>O(N<sup>2</sup>)</strong> Quadratic - Poor</div>
+                        <div class="bigo-chart-bar complexity-on2"><strong>O(2<sup>N</sup>)</strong> Exponential - Horrible</div>
+                    </div>
+                </section>
+            </div>
+        </aside>
+        
+        <!-- SIDE DRAWER 2: SETTINGS PANEL -->
+        <aside class="drawer" id="settings-drawer">
+            <div class="drawer-header">
+                <h3><i class="fa-solid fa-sliders"></i> Configuration & Settings</h3>
+                <button class="drawer-close" id="btn-close-settings">&times;</button>
+            </div>
+            <div class="drawer-body">
+                <form id="settings-form">
+                    <div class="form-group">
+                        <label for="settings-api-key">Gemini API Key</label>
+                        <div class="api-key-input-wrapper">
+                            <input type="password" id="settings-api-key" placeholder="Enter your Gemini API key...">
+                            <button type="button" id="btn-toggle-key-visibility" class="visibility-btn">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <p class="form-help">
+                            Provide your custom Gemini API key if the default key runs out of quota. Keys are stored locally on your device.
+                        </p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settings-model">Generative Model</label>
+                        <select id="settings-model">
+                            <option value="gemini-1.5-flash" selected>gemini-1.5-flash (Fast & Responsive)</option>
+                            <option value="gemini-1.5-pro">gemini-1.5-pro (Highly Logical)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settings-temperament">Instructor Temperament</label>
+                        <select id="settings-temperament">
+                            <option value="rude" selected>Rude to non-coders (Recommended)</option>
+                            <option value="sarcastic">Passive-Aggressive Code Snob</option>
+                            <option value="strict">Strict & Direct Professor</option>
+                            <option value="friendly">Patient & Friendly (Boring)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settings-temp-slider">Temperature: <span id="temp-val">0.4</span></label>
+                        <input type="range" id="settings-temp-slider" min="0" max="1" step="0.1" value="0.4">
+                        <p class="form-help">Lower values produce more deterministic, accurate DSA code.</p>
+                    </div>
+                    
+                    <div class="drawer-actions">
+                        <button type="button" class="btn-secondary" id="btn-reset-settings">Reset Defaults</button>
+                        <button type="submit" class="btn-primary">Save Config</button>
+                    </div>
+                </form>
+            </div>
+        </aside>
+        
+        <!-- Backdrop for side drawers -->
+        <div class="drawer-backdrop" id="drawer-backdrop"></div>
+        
+    </div>
+
+    <!-- Marked.js (Markdown parsing) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- PrismJS (Syntax Highlighting) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    
+    <!-- App Script -->
+    <script src="script.js"></script>
+</body>
+</html>
